@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: content: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <script src="components/loader.js"></script>
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="css/style.css">
+      <script>
+        let options = {
+                preferFrontCamera : false,
+                showFlipCameraButton : true,
+                showTorchButton : true,
+                torchOn: true, // Android only
+                saveHistory: false, // Android only
+                prompt : "スキャンエリアの中にバーコードを入れてください", // Android
+                resultDisplayDuration: 500, // Android only
+                formats : "QR_CODE,EAN_13,CODE_39", 
+                orientation : "unset", // Android only (portrait|landscape)
+                disableAnimations : true, // iOS
+                disableSuccessBeep: false // iOS and Android
+        }
+        function onSuccess (result) {
+            alert("結果: " + result.text + "\n" +
+                "バーコードの種類: " + result.format + "\n" +
+                "スキャンが中断されたかどうか: " + result.cancelled);
+        }
+        function onError (error) {
+            alert("スキャン失敗: " + error);
+        }
+        function scan() {
+            cordova.plugins.barcodeScanner.scan(
+                onSuccess,
+                onError,
+                options
+            );
+        }
+    </script>
+</head>
+<body>
+  <div>
+    <h1>beetle creators</h1>
+  </div>
+    <h1>バーコードリーダー<h1>
+    <button onclick="scan()">スキャン</button>
+</body>
+</html>
